@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:Diosan_Verter"
+             x:Class="Diosan_Verter.MainPage"
+             x:DataType="local:MainPage"
+             BackgroundColor="#FFF4D6"
+             Shell.NavBarIsVisible="False">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Colorful header -->
+        <Border Grid.Row="0" BackgroundColor="#FF6B9D" StrokeThickness="0"
+                Padding="0,40,0,16">
+            <Border.StrokeShape>
+                <RoundRectangle CornerRadius="0,0,32,32" />
+            </Border.StrokeShape>
+            <VerticalStackLayout Spacing="2">
+                <Label Text="🌈 Mauiverter 🌈" FontFamily="FredokaBold" FontSize="32"
+                       TextColor="White" HorizontalOptions="Center" />
+                <Label Text="Pick a category and start converting!" FontFamily="FredokaRegular"
+                       FontSize="14" TextColor="#FFF4D6" HorizontalOptions="Center" />
+            </VerticalStackLayout>
+        </Border>
+
+        <!-- 3-column grid of categories -->
+        <CollectionView Grid.Row="1" ItemsSource="{Binding Categories}"
+                        SelectionMode="None" Margin="10,14,10,10">
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="3"
+                                 VerticalItemSpacing="10" HorizontalItemSpacing="10" />
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="local:Category">
+                    <Border BackgroundColor="{Binding Color}" Stroke="White"
+                            StrokeThickness="3" HeightRequest="150" Padding="6">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="24" />
+                        </Border.StrokeShape>
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="OnCategoryTapped" />
+                        </Border.GestureRecognizers>
+
+                        <Grid RowDefinitions="*,Auto" RowSpacing="4">
+                            <Image Grid.Row="0" Source="{Binding Gif}"
+                                   IsAnimationPlaying="True" Aspect="AspectFit"
+                                   HeightRequest="85" />
+                            <Label Grid.Row="1" Text="{Binding Name}"
+                                   FontFamily="FredokaBold" FontSize="15"
+                                   TextColor="White" HorizontalTextAlignment="Center" />
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
+
+</ContentPage>
